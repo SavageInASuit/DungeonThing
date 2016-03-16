@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Map {
 	private final int WIN_WIDTH, WIN_HEIGHT;
+	private final float OFFSET;
 	private final float TILE_SIZE;
 	private char[][] rawMap;
 	private ArrayList<Tile> map;
@@ -32,6 +33,7 @@ public class Map {
 								  {'W','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','W'},
 								  {'F','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','F'}};
 		this.TILE_SIZE = WIN_HEIGHT/rawMap.length;
+		this.OFFSET = (WIN_WIDTH - (rawMap[0].length*TILE_SIZE))/2;
 		parseRawMap(rawMap);
 	}
 	
@@ -41,22 +43,22 @@ public class Map {
 			for(int j = 0; j<rawMap[0].length; j++){
 				switch(rawMap[i][j]){
 				case 'F':
-					map.add(new Tile(j*TILE_SIZE, i*TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.Floor));
+					map.add(new Tile(j*TILE_SIZE+OFFSET, i*TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.Floor));
 					break;
 				case 'W':
 					if(j==0 && (i!=0 || i!=(rawMap.length-1))){
-						map.add(new Tile(j*TILE_SIZE, i*TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.LeftWall));
+						map.add(new Tile(j*TILE_SIZE+OFFSET, i*TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.LeftWall));
 					}else if(i==0){
-						map.add(new Tile(j*TILE_SIZE, i*TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.TopWall));
+						map.add(new Tile(j*TILE_SIZE+OFFSET, i*TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.TopWall));
 					}else if(i==(rawMap.length-1)){
-						map.add(new Tile(j*TILE_SIZE, i*TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.BottomWall));
+						map.add(new Tile(j*TILE_SIZE+OFFSET, i*TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.BottomWall));
 					}else if(j==(rawMap[0].length-1) && (i!=0 || i!=(rawMap.length)-1)){
-						map.add(new Tile(j*TILE_SIZE, i*TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.RightWall));
+						map.add(new Tile(j*TILE_SIZE+OFFSET, i*TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.RightWall));
 					}
 					break;
 				case 'C':
-					map.add(new Tile(j*TILE_SIZE, i*TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.Floor));
-					map.add(new Tile(j*TILE_SIZE, i*TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.CenterCenterWall));
+					map.add(new Tile(j*TILE_SIZE+OFFSET, i*TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.Floor));
+					map.add(new Tile(j*TILE_SIZE+OFFSET, i*TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.CenterCenterWall));
 				}
 			}
 		}
