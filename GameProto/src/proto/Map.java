@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Map {
 	private final int WIN_WIDTH, WIN_HEIGHT;
-	private final float OFFSET;
-	private final float TILE_SIZE;
+	private final float OFFSET, TILE_SIZE;
+	private float spawn_x, spawn_y;
 	private char[][] rawMap;
 	private ArrayList<Tile> map;
 	
@@ -14,7 +14,7 @@ public class Map {
 		this.WIN_HEIGHT = WIN_HEIGHT;
 		this.rawMap = new char[][]{{'F','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','F'},
 								  {'W','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','W'},
-								  {'W','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','W'},
+								  {'W','F','F','S','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','W'},
 								  {'W','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','W'},
 								  {'W','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','W'},
 								  {'W','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','W'},
@@ -45,6 +45,11 @@ public class Map {
 				case 'F':
 					map.add(new Tile(j*TILE_SIZE+OFFSET, i*TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.Floor));
 					break;
+				case 'S':
+					spawn_x = (j*TILE_SIZE)+OFFSET;
+					spawn_y = i*TILE_SIZE;
+					map.add(new Tile(j*TILE_SIZE+OFFSET, i*TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.Floor));
+					break;
 				case 'W':
 					if(j==0 && (i!=0 || i!=(rawMap.length-1))){
 						map.add(new Tile(j*TILE_SIZE+OFFSET, i*TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.LeftWall));
@@ -66,6 +71,11 @@ public class Map {
 		return map;
 	}
 	
+	public float[] getSpawn(){
+		float[] pos = {spawn_x, spawn_y};
+		return pos;
+	}
+	
 	public void update(){
 		//Update the map and draw
 		draw();
@@ -75,5 +85,25 @@ public class Map {
 		for(Tile t : map){
 			t.update();
 		}
+	}
+	
+	public boolean Collision(float x, float y, float x_speed, float y_speed){
+		Tile t = getTileTypeAtPos(x+x_speed,y+y_speed);
+		if(t==null){
+			return false;
+		}
+		return (!t.isWalkable());
+	}
+	
+	private Tile getTileTypeAtPos(float x_pos, float y_pos){
+		Tile t = null;
+		for(Tile tile : map){
+			if(x_pos>=tile.getX()&&x_pos<=(tile.getX()+tile.getWidth())){
+				if(y_pos>=tile.getY()&&y_pos<=(tile.getY()+tile.getHeight())){
+					return tile;
+				}
+			}
+		}
+		return t;
 	}
 }

@@ -1,12 +1,15 @@
 package proto;
 
 import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.GL11;
+
 import helpers.Text;
 import static helpers.Drawing.*;
 
 public class Game {
 	
 	private final int WIN_WIDTH,WIN_HEIGHT;
+	private float gl_offset;
 	private Player player;
 	private Text textHelper;
 	private Entity entity;
@@ -16,13 +19,12 @@ public class Game {
 		WIN_WIDTH =  Display.getWidth();
 		WIN_HEIGHT = Display.getHeight();
 		textHelper = new Text();
-		player = new Player(200.0f,200.0f,700.0f);
 		map = new Map(WIN_WIDTH,WIN_HEIGHT);
-		//System.out.println("Window dimensions: " + Integer.toString(x) + " x " + Integer.toString(y));
+		player = new Player(map.getSpawn(),700.0f, map);
+		gl_offset = 0;
 	}
 	
 	public void update(){
-		drawRect(400,400,200,200);
 		map.update();
     	player.update();
 	}
