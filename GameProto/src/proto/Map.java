@@ -20,9 +20,9 @@ public class Map {
 								  {'W','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','W'},
 								  {'W','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','W'},
 								  {'W','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','W'},
-								  {'W','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','W'},
-								  {'W','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','W'},
-								  {'W','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','W'},
+								  {'W','F','F','F','C','C','C','F','F','F','F','F','F','F','F','F','F','F','F','W'},
+								  {'W','F','F','F','C','F','C','F','F','F','F','F','F','F','F','F','F','F','F','W'},
+								  {'W','F','F','F','C','C','C','F','F','F','F','F','F','F','F','F','F','F','F','W'},
 								  {'W','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','W'},
 								  {'W','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','W'},
 								  {'W','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','F','W'},
@@ -54,6 +54,9 @@ public class Map {
 						map.add(new Tile(j*TILE_SIZE, i*TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.RightWall));
 					}
 					break;
+				case 'C':
+					map.add(new Tile(j*TILE_SIZE, i*TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.Floor));
+					map.add(new Tile(j*TILE_SIZE, i*TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.CenterCenterWall));
 				}
 			}
 		}

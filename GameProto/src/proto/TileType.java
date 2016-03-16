@@ -9,10 +9,10 @@ public enum TileType {
 	BottomWall("stonewall01",false,180), 
 	LeftWall("stonewall01",false,270), 
 	CenterCenterWall("stonecenter01",false,0),
-	TopCenterWall("stonecenter01",false,0),
-	RightCenterWall("stonecenter01",false,90),
-	BottomCenterWall("stonecenter01",false,180),
-	LeftCenterWall("stonecenter01",false,270),;
+	TopCenterWall("stonecenterside01",false,0),
+	RightCenterWall("stonecenterside01",false,90),
+	BottomCenterWall("stonecenterside01",false,180),
+	LeftCenterWall("stonecenterside01",false,270),;
 	
 	public String texture_name;
 	public boolean walkable;
