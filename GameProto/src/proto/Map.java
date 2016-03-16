@@ -44,13 +44,13 @@ public class Map {
 					map.add(new Tile(j*TILE_SIZE, i*TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.Floor));
 					break;
 				case 'W':
-					if(j==0 && (i!=0 || i!=rawMap.length)){
+					if(j==0 && (i!=0 || i!=(rawMap.length-1))){
 						map.add(new Tile(j*TILE_SIZE, i*TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.LeftWall));
 					}else if(i==0){
 						map.add(new Tile(j*TILE_SIZE, i*TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.TopWall));
-					}else if(i==rawMap.length){
+					}else if(i==(rawMap.length-1)){
 						map.add(new Tile(j*TILE_SIZE, i*TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.BottomWall));
-					}else if(j==rawMap[0].length && (i!=0 || i!=rawMap.length)){
+					}else if(j==(rawMap[0].length-1) && (i!=0 || i!=(rawMap.length)-1)){
 						map.add(new Tile(j*TILE_SIZE, i*TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.RightWall));
 					}
 					break;
