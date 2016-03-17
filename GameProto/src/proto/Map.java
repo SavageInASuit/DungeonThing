@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Map {
 	private final int WIN_WIDTH, WIN_HEIGHT;
 	private final float OFFSET, TILE_SIZE;
-	private float spawn_x, spawn_y;
+	private float spawn_x, spawn_y, player_width, player_height;
 	private char[][] rawMap;
 	private ArrayList<Tile> map;
 	
@@ -62,8 +62,8 @@ public class Map {
 					}
 					break;
 				case 'C':
-					map.add(new Tile(j*TILE_SIZE+OFFSET, i*TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.Floor));
 					map.add(new Tile(j*TILE_SIZE+OFFSET, i*TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.CenterCenterWall));
+					//map.add(new Tile(j*TILE_SIZE+OFFSET, i*TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.Floor));
 				}
 			}
 		}
@@ -87,14 +87,44 @@ public class Map {
 		}
 	}
 	
-	public boolean Collision(float x, float y, float x_speed, float y_speed){
-		Tile t = getTileTypeAtPos(x+x_speed,y+y_speed);
+	public boolean CollisionX(float x, float y, float width, float height, float x_speed){
+		Tile t = null;
+		player_width = width;
+		player_height = height;
+		if(x_speed==0||x_speed<0) player_width=0;
+		t = getTileTypeAtPos(x+x_speed+player_width,y);
+		
 		if(t==null){
-			return false;
+			return true;
 		}
-		return (!t.isWalkable());
+		if(x_speed!=0){
+			return (t.isWalkable());
+		}else{
+			return true;
+		}
 	}
 	
+	public boolean CollisionY(float x, float y, float width, float height, float y_speed){
+		Tile t = null;
+		player_width = width;
+		player_height = height;
+		if(y_speed==0||y_speed<0) player_height=0;
+		t = getTileTypeAtPos(x,y+y_speed+player_height);
+		
+		if(t==null){
+			return true;
+		}
+		if(y_speed!=0){
+			return (t.isWalkable());
+		}else{
+			return true;
+		}
+	}
+	
+	public float getTILE_SIZE() {
+		return TILE_SIZE;
+	}
+
 	private Tile getTileTypeAtPos(float x_pos, float y_pos){
 		Tile t = null;
 		for(Tile tile : map){

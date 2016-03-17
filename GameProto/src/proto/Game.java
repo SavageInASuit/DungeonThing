@@ -20,7 +20,7 @@ public class Game {
 		WIN_HEIGHT = Display.getHeight();
 		textHelper = new Text();
 		map = new Map(WIN_WIDTH,WIN_HEIGHT);
-		player = new Player(map.getSpawn(),700.0f, map);
+		player = new Player(map.getSpawn(),map.getTILE_SIZE(),600.0f, map);
 		gl_offset = 0;
 	}
 	
